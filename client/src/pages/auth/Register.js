@@ -11,21 +11,24 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [answer, setAnswer] = useState("");
+
+    
     const navigate = useNavigate();
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
          const data = {
-            name, email , password , phone , address
+            name, email , password , phone , address , answer
          }
-        //  console.log(data);
+         console.log(data);
          
          
         //  console.log(process.env.REACT_APP_API)
 
          try {
-            const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register` , data);
-
+            const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register` ,data);
+                console.log("this is resposnse in front--->",res)
             if(res.data.success){
                 toast.success(res.data.message);
                 setTimeout(()=>{
@@ -100,6 +103,16 @@ const Register = () => {
                             className="form-control"
                             id="exampleInputAddress"
                             placeholder="Enter Your Address" 
+                                required
+                            />
+                    </div>
+                    <div className="form-group">
+                        <input type="text"
+                         value={answer}
+                            onChange={(e)=>setAnswer(e.target.value)}
+                            className="form-control"
+                            id="exampleInputgame"
+                            placeholder="What is your favourite sports?" 
                                 required
                             />
                     </div>

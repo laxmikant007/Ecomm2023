@@ -3,8 +3,8 @@ import userModel from "../models/userModel.js";
 
 export const requireSignIn = async (req, res, next) => {
     try {
-        console.log("require sign in middleware try block working")
-        console.log(process.env.JWT_SECRET)
+        
+        // console.log(process.env.JWT_SECRET)
         const token = req.headers.authorization;
         const decode = JWT.verify(
             token,
@@ -28,7 +28,7 @@ export const isAdmin = async(req , res , next)=>{
     try {
             const user  = await userModel.findById(req.user._id);
             if(user.role !==1){
-                return res.status(401).send({
+                return res.status(200).send({
                     success:false,
                     message:"Unauthorised Access!!"
                 })

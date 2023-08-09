@@ -13,6 +13,7 @@
 .navbar {
   font-family: "Poppins", sans-serif;
   font-size: 17px;
+  font-weight: 600;
   line-height: 26px;
   text-transform: uppercase;
   box-shadow: 0 8px 6px -6px gray;
@@ -25,7 +26,7 @@
 }
 
 .active {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(240, 143, 108);
 }
 
 .navbar-brand {
@@ -52,20 +53,20 @@
 ==========footer============= */
 
 .footer {
-  color: white;
+  color: rgb(10, 10, 10);
   padding: 25px;
-  background: #000000; /* fallback for old browsers */
+  background: #e0a3f8; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #434343,
-    #000000
+    #ca8be7,
+    #d39df2
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000);
+  background: linear-gradient(to right, #f3a4a4, #d869eb);
 }
 
 .footer a {
   text-decoration: none;
-  color: white;
+  color: rgb(14, 13, 13);
   padding: 10px;
 }
 

@@ -22,7 +22,7 @@ const Layout = ({ children,title ,description ,keywords , author}) => {
             <Header />
             <main style={{ minHeight: "70vh" }}>
             {children}
-            <ToastContainer/>
+            <ToastContainer position="top-center" autoClose={5000} />
             </main>
             <Footer />
         </div>
