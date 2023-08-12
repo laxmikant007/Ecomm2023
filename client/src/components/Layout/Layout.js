@@ -3,14 +3,21 @@ import Header from './Header';
 import Footer from './Footer';
 import { Helmet } from "react-helmet";
 import { ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 
-const Layout = ({ children,title ,description ,keywords , author}) => {
+const Layout = ({ children, title, description, keywords, author }) => {
     return (
-        <div>
+        <div
+            // style={{
+            //     position: 'relative',
+            //     minHeight: '100vh',
+            //     overflow: 'hidden',
+            //     width: '100vw'
+            // }}
+        >
             <Helmet>
                 <meta charset="UTF-8" />
                 <meta name="description" content={description} />
@@ -21,8 +28,8 @@ const Layout = ({ children,title ,description ,keywords , author}) => {
             </Helmet>
             <Header />
             <main style={{ minHeight: "70vh" }}>
-            {children}
-            <ToastContainer position="top-center" autoClose={5000} />
+                {children}
+                <ToastContainer position="top-center" autoClose={5000} />
             </main>
             <Footer />
         </div>
@@ -30,10 +37,10 @@ const Layout = ({ children,title ,description ,keywords , author}) => {
 }
 
 Layout.defaultProps = {
-    title:"Ecommerce App - shop now",
-    description:"mern stack project",
-    keywords:"mern , medical , node , mongodb",
-    author:"Laxmikant Saraswat"
+    title: "Ecommerce App - shop now",
+    description: "mern stack project",
+    keywords: "mern , medical , node , mongodb",
+    author: "Laxmikant Saraswat"
 
 
 }

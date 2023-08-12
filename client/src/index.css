@@ -62,6 +62,13 @@
     #d39df2
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #f3a4a4, #d869eb);
+  /* position: absolute;
+  bottom: 0;
+  
+   */
+
+   width: 100%;
+
 }
 
 .footer a {
