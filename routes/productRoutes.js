@@ -8,7 +8,7 @@ const router = express.Router();
 //routes
 //Create Products || POST
 router.post("/create-product" ,requireSignIn , isAdmin  ,formidable(),  createProductController)
-
+// 1/product/create-product
 //Update Product || POST
 router.put("/update-product/:pid" ,requireSignIn , isAdmin  ,formidable(),  updateProductController)
 
