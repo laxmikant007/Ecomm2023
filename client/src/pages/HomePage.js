@@ -5,10 +5,12 @@ import axios from 'axios';
 import { Button, Checkbox, Radio } from 'antd';
 import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/cart';
 
 
 
 const HomePage = () => {
+    const [cart , setCart]  = useCart();
 
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -184,7 +186,14 @@ const HomePage = () => {
                                             <p className="card-text">{item.price}</p>
 
                                             <button className="btn btn-primary ms-2" onClick={()=>navigate(`/product/${item.slug}`)} >More Details</button>
-                                            <button className="btn btn-success ms-2">Add To Cart</button>
+                                            <button className="btn btn-success ms-2"
+                                            onClick={()=>{
+                                                setCart([...cart , item]);
+                                                toast.success("Product Added to Cart Successfully!!")
+                                                
+                                            }}
+                                            
+                                            >Add To Cart</button>
 
                                         </div>
                                     </div>
