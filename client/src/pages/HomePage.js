@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import {  Checkbox, Radio } from 'antd';
+import { Checkbox, Radio } from 'antd';
 import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cart';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+import Loader from '../components/Loader';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 
 
@@ -22,7 +28,8 @@ const HomePage = () => {
     const [radio, setRadio] = useState([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+
 
 
     const getAllCategory = async () => {
@@ -139,8 +146,8 @@ const HomePage = () => {
 
 
     return (
-        <Layout  title={"All Products | Best offers "}>
-            <div   className="row">
+        <Layout title={"All Products | Best offers "}>
+            <div className="row">
                 <div className="col-md-3 mt-3">
                     <h4 className='text-center'> Filters by Category</h4>
 
@@ -172,40 +179,52 @@ const HomePage = () => {
                     <h1 className='text-center'> All Products</h1>
                     {/* {JSON.stringify(radio , null , 4)} */}
                     <div className="d-flex flex-wrap">
-                        <div className="d-flex flex-wrap">
+                        <div className="d-flex flex-wrap ">
+
+                            {loading ?
+                                <Box sx={{ display: 'flex' }}>
+                                    <CircularProgress color="success" />
+                                </Box>
+                                : (
+                                    products?.map((item) => (
 
 
-                            {
+                                        <div className="card m-4 " style={{ width: '18rem' }} key={item._id} >
+                                            <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item._id}`} className="card-img-top" alt={item.name} />
+                                            <div className="card-body">
+                                                <h5 className="card-title">{item.name}</h5>
+                                                <p className="card-text">{item.description.substring(0, 30)}...</p>
+                                                <p className="card-text">{item.price}</p>
 
+                                                <div className='d-flex flex-column'>
 
-                                products?.map((item) => (
+                                                    <Button className='m-2 ' variant='contained' onClick={() => navigate(`/product/${item.slug}`)} >More Details</Button>
+                                                    <Button className='m-2 ' variant='contained' color='success'
+                                                        onClick={() => {
+                                                            setCart([...cart, item]);
+                                                            toast.success("Product Added to Cart Successfully!!")
+                                                            localStorage.setItem("cart")
 
+                                                        }}
 
-                                    <div className="card m-4 " style={{ width: '18rem' }} key={item._id} >
-                                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item._id}`} className="card-img-top" alt={item.name} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{item.name}</h5>
-                                            <p className="card-text">{item.description.substring(0, 30)}...</p>
-                                            <p className="card-text">{item.price}</p>
+                                                    >Add To Cart</Button>
+                                                </div>
 
-                                            <div className='d-flex flex-column'>
-
-                                            <Button className='m-2 ' variant='contained' onClick={() => navigate(`/product/${item.slug}`)} >More Details</Button>
-                                            <Button className='m-2 ' variant='contained' color='success'
-                                                onClick={() => {
-                                                    setCart([...cart, item]);
-                                                    toast.success("Product Added to Cart Successfully!!")
-
-                                                }}
-
-                                            >Add To Cart</Button>
                                             </div>
-
                                         </div>
-                                    </div>
 
 
-                                ))}
+                                    ))
+
+
+
+
+
+
+                                )
+
+                            }
+
                         </div>
                         <div className="m-2 p-3">
                             {
@@ -217,12 +236,14 @@ const HomePage = () => {
 
                                     }}>
                                         {loading ? "Loading..." : "Loadmore"}
+                                        
 
                                     </button>
 
                                 )
                             }
                         </div>
+                        {/* <Loader/> */}
 
                     </div>
                 </div>

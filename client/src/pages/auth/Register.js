@@ -30,10 +30,7 @@ function Copyright(props) {
     );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
-
 export default function SignUp() {
 
     const navigate = useNavigate();
@@ -90,21 +87,25 @@ export default function SignUp() {
         <main-container >
             {/* <ThemeProvider  theme={defaultTheme}> */}
 
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
+            <Container   component="main" maxWidth="xs">
+                {/* <CssBaseline /> */}
                 <Box
                     sx={{
                         marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        // backgroundImage: `url(${loginGif})`,
+                        // backgroundSize: 'cover',
+                        // backgroundPosition: 'center',
+
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Sign up to Mahaveer Medicos👋
                     </Typography>
                     <div  className="google-btn">
                         <div className="google-icon-wrapper">

@@ -12,6 +12,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from 'antd';
+
 
 
 const Header = () => {
@@ -19,6 +21,10 @@ const Header = () => {
     const [cart] = useCart();
     const categories = useCategory();
     const navigate = useNavigate();
+
+    const cartStyle = {
+        cursor: 'pointer',
+    }
     const handleLogout = () => {
         setAuth({
             ...auth,
@@ -46,7 +52,7 @@ const Header = () => {
                         </Link>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0  ">
                             <SearchInput />
-                             <HomeIcon   sx={{ fontSize: 30 }}  color="success" />
+                            <HomeIcon sx={{ fontSize: 30 }} color="success" />
                             <li className="nav-item">
                                 <NavLink
                                     to="/"
@@ -113,12 +119,15 @@ const Header = () => {
 
                                 </>)
                             }
-                            <ShoppingCartIcon sx={{ fontSize: 30 }} color="success" />
-                            <li className="nav-item">
-                                <NavLink to="/cart" className="nav-link" >
-                                    Cart {cart?.length}
-                                </NavLink>
-                            </li>
+
+                            <Badge count={cart?.length}>
+                              
+                            <ShoppingCartIcon  onClick={()=>navigate("/cart")} sx={{ fontSize: 30 , cursor:"pointer"}} color="success" />
+                            {/* <li className="nav-item"> */}
+                                {/* <NavLink to="/cart" className="nav-link" ></NavLink> */}
+                            {/* </li> */}
+                            </Badge>
+
 
                         </ul>
 
