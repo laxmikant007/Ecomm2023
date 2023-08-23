@@ -119,6 +119,7 @@ import { useAuth } from '../../context/auth';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
+import loginGif from "./img/login.gif";
 
 function Copyright(props) {
   return (
@@ -189,6 +190,8 @@ export default function SignInSide() {
 
   }
 
+
+
   return (
     <>
       <ThemeProvider theme={defaultTheme}>
@@ -200,11 +203,11 @@ export default function SignInSide() {
             sm={4}
             md={7}
             sx={{
-              backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+              backgroundImage:`url(${loginGif})`,
               backgroundRepeat: 'no-repeat',
               backgroundColor: (t) =>
                 t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-              backgroundSize: 'cover',
+              // backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
           />
@@ -224,6 +227,19 @@ export default function SignInSide() {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
+
+              <div className="google-btn">
+                <div className="google-icon-wrapper">
+                  <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                </div>
+                <p className="btn-text"><b>Sign in with google</b></p>
+              </div>
+
+
+
+
+
+
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"
@@ -279,7 +295,7 @@ export default function SignInSide() {
           </Grid>
         </Grid>
       </ThemeProvider>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 }

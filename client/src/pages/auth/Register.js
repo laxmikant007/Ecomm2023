@@ -16,7 +16,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-
+import loginGif from "./img/login.gif";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -79,125 +79,140 @@ export default function SignUp() {
 
     }
 
+    const boxStyle = {
+        border: "20px solid red",
+
+
+        // backGroundColor:"yellow"
+    }
+
     return (
-        <>
-            <ThemeProvider theme={defaultTheme}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign up
-                        </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        autoComplete="given-name"
-                                        name="Name"
-                                        required
-                                        fullWidth
-                                        id="firstName"
-                                        label="Name"
-                                        autoFocus
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        id="exampleInputPhone"
-                                        label="Phone No."
-                                        name="phoneno"
-                                        autoComplete="phone"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
-                                        autoComplete="email"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="new-password"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        value={address}
-                                        onChange={(e) => setAddress(e.target.value)}
-                                        fullWidth
-                                        name="address"
-                                        label="Enter Your Address"
-                                        type="text"
-                                        id="exampleInputAddress"
-                                        autoComplete="address"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        value={answer}
-                                        onChange={(e) => setAnswer(e.target.value)}
-                                        fullWidth
-                                        label="What is your favourite sports?"
-                                        type="text"
-                                        id="exampleInputgame"
-                                        autoComplete="game"
-                                    />
-                                </Grid>
-                              
+        <main-container >
+            {/* <ThemeProvider  theme={defaultTheme}> */}
+
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign up
+                    </Typography>
+                    <div  className="google-btn">
+                        <div className="google-icon-wrapper">
+                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                        </div>
+                        <p className="btn-text"><b>Sign up with google</b></p>
+                    </div>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    autoComplete="given-name"
+                                    name="Name"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="Name"
+                                    autoFocus
+                                />
                             </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign Up
-                            </Button>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                    <Link href="/login" variant="body2">
-                                        Already have an account? Sign in
-                                    </Link>
-                                </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    id="exampleInputPhone"
+                                    label="Phone No."
+                                    name="phoneno"
+                                    autoComplete="phone"
+                                />
                             </Grid>
-                        </Box>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="new-password"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    fullWidth
+                                    name="address"
+                                    label="Enter Your Address"
+                                    type="text"
+                                    id="exampleInputAddress"
+                                    autoComplete="address"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    value={answer}
+                                    onChange={(e) => setAnswer(e.target.value)}
+                                    fullWidth
+                                    label="What is your favourite sports?"
+                                    type="text"
+                                    id="exampleInputgame"
+                                    autoComplete="game"
+                                />
+                            </Grid>
+
+                        </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign Up
+                        </Button>
+
+                        <Grid container justifyContent="flex-end">
+                            <Grid item>
+                                <Link href="/login" variant="body2">
+                                    Already have an account? Sign in
+                                </Link>
+                            </Grid>
+                        </Grid>
                     </Box>
-                    <Copyright sx={{ mt: 5 }} />
-                </Container>
-            </ThemeProvider>
+                </Box>
+                <Copyright sx={{ mt: 5 }} />
+            </Container>
+            {/* </ThemeProvider> */}
             <ToastContainer />
-        </>
+        </main-container>
     );
 }

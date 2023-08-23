@@ -7,7 +7,7 @@ const Search = () => {
     const [values, setValues] = useSearch();
     return (
         <Layout title='Search Results'>
-            <div className="container">
+            <div  className="container">
                 <div className="text-center">
                     <h1>Search Results</h1>
                     <h6>{

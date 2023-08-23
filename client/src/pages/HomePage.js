@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { Button, Checkbox, Radio } from 'antd';
+import {  Checkbox, Radio } from 'antd';
 import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cart';
+import Button from '@mui/material/Button';
+
 
 
 
 
 const HomePage = () => {
-    const [cart , setCart]  = useCart();
+    const [cart, setCart] = useCart();
 
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -137,8 +139,8 @@ const HomePage = () => {
 
 
     return (
-        <Layout title={"All Products | Best offers "}>
-            <div className="row">
+        <Layout  title={"All Products | Best offers "}>
+            <div   className="row">
                 <div className="col-md-3 mt-3">
                     <h4 className='text-center'> Filters by Category</h4>
 
@@ -186,15 +188,18 @@ const HomePage = () => {
                                             <p className="card-text">{item.description.substring(0, 30)}...</p>
                                             <p className="card-text">{item.price}</p>
 
-                                            <button className="btn btn-primary ms-2" onClick={()=>navigate(`/product/${item.slug}`)} >More Details</button>
-                                            <button className="btn btn-success ms-2"
-                                            onClick={()=>{
-                                                setCart([...cart , item]);
-                                                toast.success("Product Added to Cart Successfully!!")
-                                                
-                                            }}
-                                            
-                                            >Add To Cart</button>
+                                            <div className='d-flex flex-column'>
+
+                                            <Button className='m-2 ' variant='contained' onClick={() => navigate(`/product/${item.slug}`)} >More Details</Button>
+                                            <Button className='m-2 ' variant='contained' color='success'
+                                                onClick={() => {
+                                                    setCart([...cart, item]);
+                                                    toast.success("Product Added to Cart Successfully!!")
+
+                                                }}
+
+                                            >Add To Cart</Button>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -208,7 +213,7 @@ const HomePage = () => {
                                     <button className='btn btn-warning ' onClick={(e) => {
                                         e.preventDefault();
                                         setPage(page + 1);
-                                        
+
 
                                     }}>
                                         {loading ? "Loading..." : "Loadmore"}

@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 const About = () => {
   return (
     <Layout title={"About us -Ecommerce "}>
-      <div className="row contactus ">
+      <div  className="row contactus ">
         <div className="col-md-6 ">
           <img
             src="/images/about.jpeg"
