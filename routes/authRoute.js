@@ -14,6 +14,9 @@ const router = express.Router();
 //Register Route || POST
 router.post('/register', registerController);
 
+// Register with google || POST
+
+
 //LOGIN Route || POST
 router.post('/login', loginController)
 

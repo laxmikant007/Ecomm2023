@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 
 const ProductDetails = () => {
@@ -44,12 +45,12 @@ const ProductDetails = () => {
     return (
         <Layout title='Product Deatils '>
 
-            <div className="row container mt-4">
-                <div className="col-md-6">
+            <div   className="row container mt-4">
+                <div className="col-md-6 text-center">
                     <img
-                        src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`} className="img-fluid img-thumbnail" alt={product?.name}
-                    //  height={"450px"}
-                    //  width={"450px"}
+                        src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`} className="img-fluid img-thumbnail product-image" alt={product?.name}
+                        height={"40vh"}
+                        width={"450px"}
 
                     />
                 </div>
@@ -60,7 +61,13 @@ const ProductDetails = () => {
 
                     <h5>Product Price : {product?.price}</h5>
                     <h5>Product Category : {product?.category?.name}</h5>
-                    <button className="btn btn-success ms-2">Add To Cart</button>
+                    {/* <button className="btn btn-success ms-2">Add To Cart</button>
+                    <button className="btn btn-success ms-2">Buy Now </button> */}
+
+                    <Button className='m-2' variant="contained" >Add To Cart</Button>
+                    <Button className='m-2' variant="contained" color="success">Buy Now</Button>
+
+
 
 
 
@@ -71,11 +78,7 @@ const ProductDetails = () => {
                 <h1 className='text-center'>Similar Products</h1>
                 {relatedProducts.length < 1 && (<h4 className='text-center'>NO Similar Products Found😢</h4>)}
                 <div className="d-flex flex-wrap">
-
-
                     {
-
-
                         relatedProducts?.map((item) => (
 
 
@@ -89,10 +92,9 @@ const ProductDetails = () => {
                                     <button className="btn btn-primary ms-2" onClick={() => navigate(`/product/${item.slug}`)} >More Details</button>
                                     <button className="btn btn-success ms-2">Add To Cart</button>
 
+
                                 </div>
                             </div>
-
-
                         ))}
                 </div>
             </div>

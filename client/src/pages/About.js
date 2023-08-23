@@ -1,10 +1,12 @@
 import React from "react";
 import Layout from "./../components/Layout/Layout";
+import Button from '@mui/material/Button';
+
 
 const About = () => {
   return (
     <Layout title={"About us -Ecommerce "}>
-      <div className="row contactus ">
+      <div  className="row contactus ">
         <div className="col-md-6 ">
           <img
             src="/images/about.jpeg"
@@ -21,6 +23,7 @@ const About = () => {
             accusantium atque, excepturi sapiente amet! Tenetur ducimus aut
             commodi illum quidem neque tempora nam.
           </p>
+          <Button variant="contained">Hello Material world</Button>;
         </div>
       </div>
     </Layout>
