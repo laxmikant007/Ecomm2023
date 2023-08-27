@@ -26,6 +26,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
 import CartPage from "./pages/CartPage";
+import WishList from "./pages/WishList";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
 
 
+        <Route path="/wishList" element={<WishList/>}/>
 
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

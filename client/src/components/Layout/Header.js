@@ -12,6 +12,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from 'antd';
+import Item from 'antd/es/list/Item';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useWishList } from '../../context/wishlist';
+
+
 
 
 const Header = () => {
@@ -19,6 +25,12 @@ const Header = () => {
     const [cart] = useCart();
     const categories = useCategory();
     const navigate = useNavigate();
+    const [wishList]=useWishList();
+
+
+    const cartStyle = {
+        cursor: 'pointer',
+    }
     const handleLogout = () => {
         setAuth({
             ...auth,
@@ -46,7 +58,7 @@ const Header = () => {
                         </Link>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0  ">
                             <SearchInput />
-                             <HomeIcon   sx={{ fontSize: 30 }}  color="success" />
+                            <HomeIcon sx={{ fontSize: 30 }} color="success" />
                             <li className="nav-item">
                                 <NavLink
                                     to="/"
@@ -74,14 +86,14 @@ const Header = () => {
 
                                     </li>
                                     {categories?.map((c) => (
-                                        <li><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
+                                        <li key={c._id}><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
 
                                     ))}
                                 </ul>
                             </li>
                             <AccountCircleIcon sx={{ fontSize: 30 }} color="success" />
                             {
-                                !auth.user ? (<>
+                                !auth?.user ? (<>
                                     <li className="nav-item">
                                         <NavLink to="/register" className="nav-link" >
                                             Register
@@ -113,12 +125,21 @@ const Header = () => {
 
                                 </>)
                             }
-                            <ShoppingCartIcon sx={{ fontSize: 30 }} color="success" />
+
+                            <Badge count={cart?.length}>
+
+                                <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{ fontSize: 30, cursor: "pointer" }} color="success" />
+                            </Badge>
+
                             <li className="nav-item">
-                                <NavLink to="/cart" className="nav-link" >
-                                    Cart {cart?.length}
+                                <NavLink to="/wishList" className="nav-link">
+                                    WishList
+                                    <FavoriteIcon color="success" /> ({wishList?.length})
                                 </NavLink>
                             </li>
+
+
+
 
                         </ul>
 

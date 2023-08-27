@@ -2,11 +2,27 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import {  Checkbox, Radio } from 'antd';
+import { Checkbox, Radio } from 'antd';
 import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cart';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+import Loader from '../components/Loader';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import Filter from '../components/HomeComponent/Filter';
+import HomeBanner from '../components/HomeComponent/HomeBanner';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useWishList } from '../context/wishlist';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+
+
 
 
 
@@ -14,6 +30,8 @@ import Button from '@mui/material/Button';
 
 const HomePage = () => {
     const [cart, setCart] = useCart();
+    const URL = process.env.REACT_APP_API;
+
 
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -22,7 +40,10 @@ const HomePage = () => {
     const [radio, setRadio] = useState([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [wishList, setWishList] = useWishList();
+
+
 
 
     const getAllCategory = async () => {
@@ -91,6 +112,16 @@ const HomePage = () => {
 
     }
 
+    const handleWishlist = (product) => {
+
+        console.log("pro to add is ", product)
+
+        setWishList([...wishList, product]);
+        localStorage.setItem('wishList', JSON.stringify([...wishList, product]));
+
+
+        toast.success(`${product.name} has been added to wishlist`)
+    }
 
 
     const handleFilter = (value, id) => {
@@ -139,73 +170,76 @@ const HomePage = () => {
 
 
     return (
-        <Layout  title={"All Products | Best offers "}>
-            <div   className="row">
-                <div className="col-md-3 mt-3">
-                    <h4 className='text-center'> Filters by Category</h4>
+        <Layout title={"All Products | Best offers "}>
+            <HomeBanner />
+            <div className="row">
+                <div className="col-md-2 m-3">
 
-                    <div className="d-flex flex-column m-4">
-                        {
-                            categories?.map((c) => (
-                                <Checkbox key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
-                                    {c.name}
-                                </Checkbox>
-                            ))
-                        }
-                    </div>
-                    <h4 className='text-center'> Filters by Price</h4>
-                    <div className="d-flex flex-column m-4">
-                        <Radio.Group onChange={e => setRadio(e.target.value)}>
-                            {Prices?.map(p => (
-                                <div key={p._id}>
-                                    <Radio value={p.array}>{p.name}</Radio>
-
-                                </div>
-                            ))}
-                        </Radio.Group>
-                    </div>
-                    <div className="d-flex flex-column m-4">
-                        <button className='btn btn-danger ' onClick={() => window.location.reload()}>RESET FILTERS</button>
-                    </div>
+                    <Filter handleFilter={handleFilter} setRadio={setRadio} categories={categories} Prices={Prices} />
                 </div>
                 <div className="col-md-9">
                     <h1 className='text-center'> All Products</h1>
                     {/* {JSON.stringify(radio , null , 4)} */}
                     <div className="d-flex flex-wrap">
-                        <div className="d-flex flex-wrap">
+                        <div className="d-flex flex-wrap justify-content-between ">
+
+                            {loading ?
+                                <Box sx={{ display: 'flex' }}>
+                                    <CircularProgress color="success" />
+                                </Box>
+                                : (
+                                    products?.map(product => (
+
+                                        <div className="card m-2 card-box" style={{ width: '17rem' }}  >
 
 
-                            {
+                                            <img src={`${URL}/api/v1/product/product-photo/${product._id}`} className="card-img-top"
+                                                style={{ height: "200px", objectFit: "cover" }}
+                                                alt={product.name}
 
 
-                                products?.map((item) => (
+                                            />
+                                            <div className="d-flex justify-content-between p-2">
 
-
-                                    <div className="card m-4 " style={{ width: '18rem' }} key={item._id} >
-                                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item._id}`} className="card-img-top" alt={item.name} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{item.name}</h5>
-                                            <p className="card-text">{item.description.substring(0, 30)}...</p>
-                                            <p className="card-text">{item.price}</p>
-
-                                            <div className='d-flex flex-column'>
-
-                                            <Button className='m-2 ' variant='contained' onClick={() => navigate(`/product/${item.slug}`)} >More Details</Button>
-                                            <Button className='m-2 ' variant='contained' color='success'
-                                                onClick={() => {
-                                                    setCart([...cart, item]);
-                                                    toast.success("Product Added to Cart Successfully!!")
-
-                                                }}
-
-                                            >Add To Cart</Button>
+                                                <FavoriteBorderIcon fontSize="large" sx={{ color: "#e91e63", cursor: "pointer" }} onClick={() => { handleWishlist(product) }} />
+                                                <VisibilityIcon color="secondary" sx={{ cursor: "pointer" }} fontSize="large" onClick={() => { navigate(`/product/${product.slug}`) }} />
                                             </div>
 
+                                            <div className="card-body">
+                                                <h5 className="card-title">{product.name}</h5>
+                                                <p className="card-text">{product.description.substring(0, 25)}....</p>
+                                                <div className='pro-price'>
+                                                    <div className="card-text fp">    ₹ {product.price - 500} </div>
+                                                    <div className="card-text sp">  ₹ {product.price} </div>
+
+                                                    <div className='off'> ( 10 % OFF ) </div>
+                                                </div>
+
+                                                <div className='card-btn'>
+
+                                                    <button className='card-btn-details' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button>
+                                                    <button className='card-btn-add' onClick={() => {
+                                                        setCart([...cart, product]);
+                                                        localStorage.setItem('cart', JSON.stringify([...cart, product]));
+                                                        toast.success(`${product.name} has been added to cart`);
+                                                    }} >Add to cart</button>
+                                                </div>
+
+
+
+                                            </div>
                                         </div>
-                                    </div>
+                                    ))
 
 
-                                ))}
+
+
+
+
+                                )
+
+                            }
+
                         </div>
                         <div className="m-2 p-3">
                             {
@@ -218,11 +252,13 @@ const HomePage = () => {
                                     }}>
                                         {loading ? "Loading..." : "Loadmore"}
 
+
                                     </button>
 
                                 )
                             }
                         </div>
+                        {/* <Loader/> */}
 
                     </div>
                 </div>
