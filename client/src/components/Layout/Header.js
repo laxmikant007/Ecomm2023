@@ -13,6 +13,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from 'antd';
+import Item from 'antd/es/list/Item';
 
 
 
@@ -80,14 +81,14 @@ const Header = () => {
 
                                     </li>
                                     {categories?.map((c) => (
-                                        <li><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
+                                        <li key={c._id}><Link  className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
 
                                     ))}
                                 </ul>
                             </li>
                             <AccountCircleIcon sx={{ fontSize: 30 }} color="success" />
                             {
-                                !auth.user ? (<>
+                                !auth?.user ? (<>
                                     <li className="nav-item">
                                         <NavLink to="/register" className="nav-link" >
                                             Register

@@ -4,18 +4,19 @@ import categoryModel from "../models/categoryModel.js";
 
 import fs from "fs";
 import slugify from "slugify";
-// import braintree from "braintree";
+import braintree from "braintree";
 import dotenv from "dotenv";
+import orderModel from "../models/orderModel.js";
 
 dotenv.config();
 
-//payment gateway
-// var gateway = new braintree.BraintreeGateway({
-//   environment: braintree.Environment.Sandbox,
-//   merchantId: process.env.BRAINTREE_MERCHANT_ID,
-//   publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-//   privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-// });
+// payment gateway
+var gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
 
 export const createProductController = async (req, res) => {
   try {
@@ -343,7 +344,7 @@ export const braintreeTokenController = async (req, res) => {
 };
 
 //payment
-export const brainTreePaymentController = async (req, res) => {
+export const  brainTreePaymentController = async (req, res) => {
   try {
     const { nonce, cart } = req.body;
     let total = 0;
@@ -375,6 +376,23 @@ export const brainTreePaymentController = async (req, res) => {
     console.log(error);
   }
 };
+
+
+// export const braintreeTokenController = ()=>{
+//   try {
+
+
+    
+//   } catch (error) {
+//     console.log("Errorn in braintreeController-->", error);
+//     res.status(500).send({
+//       success:false,
+//       message:"Error in Brtaintree Controller!",
+//       error
+//     })
+    
+//   }
+// }
 
 
 

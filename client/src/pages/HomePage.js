@@ -203,7 +203,7 @@ const HomePage = () => {
                                                         onClick={() => {
                                                             setCart([...cart, item]);
                                                             toast.success("Product Added to Cart Successfully!!")
-                                                            localStorage.setItem("cart")
+                                                            localStorage.setItem('cart',JSON.stringify([...cart , item]) )
 
                                                         }}
 
