@@ -120,6 +120,9 @@ import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import loginGif from "./img/login.gif";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import jwt_decode from "jwt-decode";
+
 
 
 function Copyright(props) {
@@ -204,7 +207,7 @@ export default function SignInSide() {
             sm={4}
             md={7}
             sx={{
-              backgroundImage:`url(${loginGif})`,
+              backgroundImage: `url(${loginGif})`,
               backgroundRepeat: 'no-repeat',
               backgroundColor: (t) =>
                 t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -229,12 +232,28 @@ export default function SignInSide() {
                 Sign in
               </Typography>
 
-              <div className="google-btn">
+              {/* <div className="google-btn">
                 <div className="google-icon-wrapper">
                   <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
                 </div>
                 <p className="btn-text"><b>Sign in with google</b></p>
-              </div>
+              </div> */}
+
+
+              <GoogleOAuthProvider clientId="195337239909-bpjg0qe850h5n4npsfk8r969ki2f89u6.apps.googleusercontent.com">
+                <GoogleLogin
+                  onSuccess={credentialResponse => {
+                    var decoded = jwt_decode(credentialResponse.credential);
+                    localStorage.setItem("google", JSON.stringify(decoded));
+
+                    console.log(decoded);
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />;
+              </GoogleOAuthProvider>;
+
 
 
 

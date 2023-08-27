@@ -14,6 +14,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from 'antd';
 import Item from 'antd/es/list/Item';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useWishList } from '../../context/wishlist';
+
 
 
 
@@ -22,6 +25,8 @@ const Header = () => {
     const [cart] = useCart();
     const categories = useCategory();
     const navigate = useNavigate();
+    const [wishList]=useWishList();
+
 
     const cartStyle = {
         cursor: 'pointer',
@@ -81,7 +86,7 @@ const Header = () => {
 
                                     </li>
                                     {categories?.map((c) => (
-                                        <li key={c._id}><Link  className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
+                                        <li key={c._id}><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
 
                                     ))}
                                 </ul>
@@ -122,12 +127,18 @@ const Header = () => {
                             }
 
                             <Badge count={cart?.length}>
-                              
-                            <ShoppingCartIcon  onClick={()=>navigate("/cart")} sx={{ fontSize: 30 , cursor:"pointer"}} color="success" />
-                            {/* <li className="nav-item"> */}
-                                {/* <NavLink to="/cart" className="nav-link" ></NavLink> */}
-                            {/* </li> */}
+
+                                <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{ fontSize: 30, cursor: "pointer" }} color="success" />
                             </Badge>
+
+                            <li className="nav-item">
+                                <NavLink to="/wishList" className="nav-link">
+                                    WishList
+                                    <FavoriteIcon color="success" /> ({wishList?.length})
+                                </NavLink>
+                            </li>
+
+
 
 
                         </ul>
