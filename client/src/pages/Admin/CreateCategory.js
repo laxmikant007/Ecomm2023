@@ -6,6 +6,9 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import CategoryForm from '../../components/Form/CategoryForm'
 import { Button, Modal } from 'antd';
+import LinearProgress from '@mui/material/LinearProgress';
+import { Box } from '@mui/material'
+
 
 
 const CreateCategory = () => {
@@ -13,7 +16,9 @@ const CreateCategory = () => {
     const [name, setName] = useState("");
     const [visible, setVisible] = useState(false);
     const [selected, setSelected] = useState(null);
-    const [updatedName, setUpdatedName] = useState("")
+    const [updatedName, setUpdatedName] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
 
 
@@ -37,11 +42,13 @@ const CreateCategory = () => {
 
     const getAllCategory = async () => {
         try {
+            setLoading(true);
             const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
-            console.log(data);
+            // console.log(data);
             if (data?.success) {
                 setCategories(data?.category)
             }
+            setLoading(false);
 
         } catch (error) {
             console.log("Error in getting All Categories-->", error);
@@ -104,7 +111,7 @@ const CreateCategory = () => {
 
     return (
         <Layout title={"Dashboard - Create Category"}>
-            <div style={{marginTop : "80px"}} className="container-fluid m-3 p-3">
+            <div style={{ marginTop: "80px" }} className="container-fluid m-3 p-3">
                 <div className="row ">
                     <div className="col-md-3">
                         <AdminMenu />
@@ -120,6 +127,10 @@ const CreateCategory = () => {
 
                             />
                         </div>
+
+
+
+
                         <div className="w-75">
                             <table className="table table-striped">
                                 <thead>
@@ -129,26 +140,40 @@ const CreateCategory = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {categories?.map(c => (
-                                        <>
-                                            <tr>
-                                                <td key={c._id}>{c.name}</td>
-                                                <td >
-                                                    <button onClick={() => {
-                                                        setVisible(true);
-                                                        setUpdatedName(c.name);
-                                                        setSelected(c)
-                                                    }} className="btn btn-primary ms-2">Edit</button>
-                                                    <button
-                                                        className="btn btn-danger ms-2"
-                                                        onClick={() => { handleDelete(c._id) }}>
-                                                        Delete
-                                                    </button>
 
-                                                </td>
-                                            </tr>
-                                        </>
-                                    ))}
+                                    {
+                                        loading ? (
+                                            <div className="d-flex justify-content-center w-100">
+                                                <Box sx={{ width: '100%' }}>
+                                                    <LinearProgress />
+                                                </Box>
+
+                                            </div>
+                                        ) : (
+                                            <>
+                                                {categories?.map(c => (
+                                                    <tr>
+                                                        <td key={c._id}>{c.name}</td>
+                                                        <td >
+                                                            <button onClick={() => {
+                                                                setVisible(true);
+                                                                setUpdatedName(c.name);
+                                                                setSelected(c)
+                                                            }} className="btn btn-primary ms-2">Edit</button>
+                                                            <button
+                                                                className="btn btn-danger ms-2"
+                                                                onClick={() => { handleDelete(c._id) }}>
+                                                                Delete
+                                                            </button>
+
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </>
+                                        )
+                                    }
+
+
                                 </tbody>
                             </table>
 
