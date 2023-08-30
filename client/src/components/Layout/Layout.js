@@ -10,14 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = ({ children, title, description, keywords, author }) => {
     return (
-        <div
-            // style={{
-            //     position: 'relative',
-            //     minHeight: '100vh',
-            //     overflow: 'hidden',
-            //     width: '100vw'
-            // }}
-        >
+        <div>
             <Helmet>
                 <meta charset="UTF-8" />
                 <meta name="description" content={description} />

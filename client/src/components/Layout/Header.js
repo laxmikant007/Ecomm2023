@@ -25,7 +25,7 @@ const Header = () => {
     const [cart] = useCart();
     const categories = useCategory();
     const navigate = useNavigate();
-    const [wishList]=useWishList();
+    const [wishList] = useWishList();
 
 
     const cartStyle = {
@@ -47,103 +47,116 @@ const Header = () => {
     }
     return (
         <>
-            <nav className="navbar navbar-expand-lg sticky-header " style={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1000 }} >
+            <nav className="navbar navbar-expand-lg sticky-header " style={{
+                position: 'sticky', top: 0, backgroundColor: '#fff',
+
+
+                background: 'rgba(255, 255, 255, 0.49)',
+                borderRadius: '16px',
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                backdropFilter: 'blur(6.6px)',
+                WebkitBackdropFilter: 'blur(6.6px)',
+
+
+
+                zIndex: 1000
+            }} >
                 <div className="container-fluid ">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
-<div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <Link to="/" className="navbar-brand" >
-        <img height={45} src={logo} alt="Logo" />
-    </Link>
-    <ul className="navbar-nav ms-auto mb-2 mb-lg-0  ">
-        <SearchInput />
-        <HomeIcon sx={{ fontSize: 30 }} color="success" />
-        <li className="nav-item">
-            <NavLink
-                to="/"
-                className="nav-link"
-            >
-                Home
-            </NavLink>
-        </li>
-        <CategoryIcon sx={{ fontSize: 30 }} color="success" />
-        <li className="nav-item dropdown">
-            <Link className="nav-link dropdown-toggle"
-                to={"/categories"}
-                data-bs-toggle="dropdown"
-            >
-                Categories
-            </Link>
+                    <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <Link to="/" className="navbar-brand" >
+                            <img height={45} src={logo} alt="Logo" />
+                        </Link>
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0  ">
+                            <SearchInput />
+                            <HomeIcon sx={{ fontSize: 30 }} color="success" />
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/"
+                                    className="nav-link"
+                                >
+                                    Home
+                                </NavLink>
+                            </li>
+                            <CategoryIcon sx={{ fontSize: 30 }} color="success" />
+                            <li className="nav-item dropdown">
+                                <Link className="nav-link dropdown-toggle"
+                                    to={"/categories"}
+                                    data-bs-toggle="dropdown"
+                                >
+                                    Categories
+                                </Link>
 
-            <ul className="dropdown-menu">
-                <li>
-                    <Link className="dropdown-item"
-                        to={"/categories"}
-                    >
-                        All Categories
-                    </Link>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link className="dropdown-item"
+                                            to={"/categories"}
+                                        >
+                                            All Categories
+                                        </Link>
 
-                </li>
-                {categories?.map((c) => (
-                    <li key={c._id}><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
+                                    </li>
+                                    {categories?.map((c) => (
+                                        <li key={c._id}><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
 
-                ))}
-            </ul>
-        </li>
-        <AccountCircleIcon sx={{ fontSize: 30 }} color="success" />
-        {
-            !auth?.user ? (<>
-                <li className="nav-item">
-                    <NavLink to="/register" className="nav-link" >
-                        Register
-                    </NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink to="/login" className="nav-link" >
-                        Login
-                    </NavLink>
-                </li>
-            </>) : (<>
-                <li className="nav-item dropdown">
-                    <NavLink className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {auth?.user?.name}
-                    </NavLink>
-                    <ul className="dropdown-menu">
-                        <li><NavLink
-                            to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}
-                            className="dropdown-item" >
-                            Dashboard</NavLink></li>
+                                    ))}
+                                </ul>
+                            </li>
+                            <AccountCircleIcon sx={{ fontSize: 30 }} color="success" />
+                            {
+                                !auth?.user ? (<>
+                                    <li className="nav-item">
+                                        <NavLink to="/register" className="nav-link" >
+                                            Register
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink to="/login" className="nav-link" >
+                                            Login
+                                        </NavLink>
+                                    </li>
+                                </>) : (<>
+                                    <li className="nav-item dropdown">
+                                        <NavLink className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {auth?.user?.name}
+                                        </NavLink>
+                                        <ul className="dropdown-menu">
+                                            <li><NavLink
+                                                to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}
+                                                className="dropdown-item" >
+                                                Dashboard</NavLink></li>
 
-                        <li className="nav-item">
-                            <NavLink onClick={handleLogout} className="dropdown-item"  >
-                                Logout
-                            </NavLink>
-                        </li>
-                    </ul>
-                </li>
+                                            <li className="nav-item">
+                                                <NavLink onClick={handleLogout} className="dropdown-item"  >
+                                                    Logout
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-            </>)
-        }
+                                </>)
+                            }
 
-        <Badge count={cart?.length}>
+                            <Badge count={cart?.length}>
 
-            <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{ fontSize: 30, cursor: "pointer" }} color="success" />
-        </Badge>
+                                <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{ fontSize: 30, cursor: "pointer" }} color="success" />
+                            </Badge>
 
-        <li className="nav-item">
-            <NavLink to="/wishList" className="nav-link">
-                WishList
-                <FavoriteIcon color="success" /> ({wishList?.length})
-            </NavLink>
-        </li>
-
-
+                            <li className="nav-item">
+                                <NavLink to="/wishList" className="nav-link">
+                                    WishList
+                                    <FavoriteIcon color="success" /> ({wishList?.length})
+                                </NavLink>
+                            </li>
 
 
-    </ul>
 
-</div>
+
+                        </ul>
+
+                    </div>
                 </div>
             </nav>
 

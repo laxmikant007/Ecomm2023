@@ -176,6 +176,42 @@ const HomePage = () => {
         }
 
     }
+    // const axios = require('axios');
+
+    const getSongs = async () => {
+        // const axios = require('axios');
+
+        const options = {
+          method: 'POST',
+          url: 'https://openai80.p.rapidapi.com/chat/completions',
+          headers: {
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': 'bafedf1159msh1a6daac404c3951p1e899cjsn3c72229ee2a2',
+            'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
+          },
+          data: {
+            model: 'gpt-3.5-turbo',
+            messages: [
+              {
+                role: 'user',
+                content: 'Hello!'
+              }
+            ]
+          }
+        };
+        
+        try {
+            const response = await axios.request(options);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(()=>{
+        getSongs();
+    },[])
+    
 
 
     return (
@@ -191,7 +227,7 @@ const HomePage = () => {
                     <h1 className='text-center'> All Products</h1>
                     <Box sx={{ pt: 0.5 }}>
                         {/* <Skeleton /> */}
-                        <Skeleton animation="wave" variant="circular" width={40} height={40}  />
+                        <Skeleton animation="wave" variant="circular" width={40} height={40} />
                         <Skeleton variant="rectangular" width={"20%"} height={118} />
                         <Skeleton width="20%" />
                     </Box>
@@ -212,7 +248,7 @@ const HomePage = () => {
                                         : (
                                             products?.map(product => (
 
-                                                <div className="card m-2 card-box" style={{ width: '17rem' }}  >
+                                                <div key={product._id} className="card m-2 card-box" style={{ width: '17rem' }}  >
 
 
                                                     {product.photo ? ( // Check if product has a photo
