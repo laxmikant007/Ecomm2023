@@ -20,6 +20,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useWishList } from '../context/wishlist';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import Skeleton from '../components/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
+
+// import LinearProgress from '@mui/material/LinearProgress';
+
 
 
 
@@ -42,6 +47,8 @@ const HomePage = () => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [wishList, setWishList] = useWishList();
+    const [loadingbar, setLoadingbar] = useState(false);
+
 
 
 
@@ -99,8 +106,10 @@ const HomePage = () => {
 
         try {
             setLoading(true);
+            setLoadingbar(true);
             const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`);
             setLoading(false);
+            setLoadingbar(false);
             setProducts(data?.products);
             // console.log(data.products);
 
@@ -167,6 +176,42 @@ const HomePage = () => {
         }
 
     }
+    // const axios = require('axios');
+
+    const getSongs = async () => {
+        // const axios = require('axios');
+
+        const options = {
+          method: 'POST',
+          url: 'https://openai80.p.rapidapi.com/chat/completions',
+          headers: {
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': 'bafedf1159msh1a6daac404c3951p1e899cjsn3c72229ee2a2',
+            'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
+          },
+          data: {
+            model: 'gpt-3.5-turbo',
+            messages: [
+              {
+                role: 'user',
+                content: 'Hello!'
+              }
+            ]
+          }
+        };
+        
+        try {
+            const response = await axios.request(options);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(()=>{
+        getSongs();
+    },[])
+    
 
 
     return (
@@ -178,89 +223,116 @@ const HomePage = () => {
                     <Filter handleFilter={handleFilter} setRadio={setRadio} categories={categories} Prices={Prices} />
                 </div>
                 <div className="col-md-9">
+
                     <h1 className='text-center'> All Products</h1>
+                    <Box sx={{ pt: 0.5 }}>
+                        {/* <Skeleton /> */}
+                        <Skeleton animation="wave" variant="circular" width={40} height={40} />
+                        <Skeleton variant="rectangular" width={"20%"} height={118} />
+                        <Skeleton width="20%" />
+                    </Box>
                     {/* {JSON.stringify(radio , null , 4)} */}
-                    <div className="d-flex flex-wrap">
-                        <div className="d-flex flex-wrap justify-content-between ">
+                    {
+                        loadingbar ? (<>
+                            <Box>
+                                <LinearProgress />
+                            </Box>
+                        </>) : (
+                            <div className="d-flex flex-wrap">
+                                <div className="d-flex flex-wrap justify-content-between ">
 
-                            {loading ?
-                                <Box sx={{ display: 'flex' }}>
-                                    <CircularProgress color="success" />
-                                </Box>
-                                : (
-                                    products?.map(product => (
+                                    {loadingbar ?
+                                        <Box sx={{ width: '100%' }}>
+                                            <CircularProgress color="success" />
+                                        </Box>
+                                        : (
+                                            products?.map(product => (
 
-                                        <div className="card m-2 card-box" style={{ width: '17rem' }}  >
-
-
-                                            <img src={`${URL}/api/v1/product/product-photo/${product._id}`} className="card-img-top"
-                                                style={{ height: "200px", objectFit: "cover" }}
-                                                alt={product.name}
+                                                <div key={product._id} className="card m-2 card-box" style={{ width: '17rem' }}  >
 
 
-                                            />
-                                            <div className="d-flex justify-content-between p-2">
+                                                    {product.photo ? ( // Check if product has a photo
+                                                        <Box sx={{ width: "100%", padding: "10px" }}>
+                                                            <CircularProgress />
+                                                        </Box>
+                                                    ) : (
+                                                        <img
+                                                            src={`${URL}/api/v1/product/product-photo/${product._id}`}
+                                                            className="card-img-top"
+                                                            style={{ height: "200px", objectFit: "cover" }}
+                                                            alt={product.name}
+                                                        />
+                                                    )}
 
-                                                <FavoriteBorderIcon fontSize="large" sx={{ color: "#e91e63", cursor: "pointer" }} onClick={() => { handleWishlist(product) }} />
-                                                <VisibilityIcon color="secondary" sx={{ cursor: "pointer" }} fontSize="large" onClick={() => { navigate(`/product/${product.slug}`) }} />
-                                            </div>
+                                                    <div className="d-flex justify-content-between p-2">
 
-                                            <div className="card-body">
-                                                <h5 className="card-title">{product.name}</h5>
-                                                <p className="card-text">{product.description.substring(0, 25)}....</p>
-                                                <div className='pro-price'>
-                                                    <div className="card-text fp">    ₹ {product.price - 500} </div>
-                                                    <div className="card-text sp">  ₹ {product.price} </div>
+                                                        <FavoriteBorderIcon fontSize="large" sx={{ color: "#e91e63", cursor: "pointer" }} onClick={() => { handleWishlist(product) }} />
+                                                        <VisibilityIcon color="secondary" sx={{ cursor: "pointer" }} fontSize="large" onClick={() => { navigate(`/product/${product.slug}`) }} />
+                                                    </div>
 
-                                                    <div className='off'> ( 10 % OFF ) </div>
+                                                    <div className="card-body">
+                                                        <h5 className="card-title">{product.name}</h5>
+                                                        <p className="card-text">{product.description.substring(0, 25)}....</p>
+                                                        <div className='pro-price'>
+                                                            <div className="card-text fp">    ₹ {product.price - 500} </div>
+                                                            <div className="card-text sp">  ₹ {product.price} </div>
+
+                                                            <div className='off'> ( 10 % OFF ) </div>
+                                                        </div>
+
+                                                        <div className='card-btn'>
+
+                                                            <button className='card-btn-details' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button>
+                                                            <button className='card-btn-add' onClick={() => {
+                                                                setCart([...cart, product]);
+                                                                localStorage.setItem('cart', JSON.stringify([...cart, product]));
+                                                                toast.success(`${product.name} has been added to cart`);
+                                                            }} >Add to cart</button>
+                                                        </div>
+
+
+
+                                                    </div>
                                                 </div>
-
-                                                <div className='card-btn'>
-
-                                                    <button className='card-btn-details' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button>
-                                                    <button className='card-btn-add' onClick={() => {
-                                                        setCart([...cart, product]);
-                                                        localStorage.setItem('cart', JSON.stringify([...cart, product]));
-                                                        toast.success(`${product.name} has been added to cart`);
-                                                    }} >Add to cart</button>
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-                                    ))
+                                            ))
 
 
 
 
 
 
-                                )
+                                        )
 
-                            }
+                                    }
 
-                        </div>
-                        <div className="m-2 p-3">
-                            {
-                                products && products.length < total && (
-                                    <button className='btn btn-warning ' onClick={(e) => {
-                                        e.preventDefault();
-                                        setPage(page + 1);
-
-
-                                    }}>
-                                        {loading ? "Loading..." : "Loadmore"}
+                                </div>
+                                <div className="m-2 p-3">
+                                    {
+                                        products && products.length < total && (
+                                            <button className='btn btn-warning ' onClick={(e) => {
+                                                e.preventDefault();
+                                                setPage(page + 1);
 
 
-                                    </button>
+                                            }}>
+                                                {loading ? "Loading..." : "Loadmore"}
 
-                                )
-                            }
-                        </div>
-                        {/* <Loader/> */}
 
-                    </div>
+                                            </button>
+
+                                        )
+                                    }
+                                </div>
+
+                                {/* <Loader/> */}
+
+                            </div>
+
+                        )
+                    }
+
+
+
                 </div>
 
             </div>
