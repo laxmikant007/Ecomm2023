@@ -24,10 +24,7 @@ const WishList = () => {
     const navigate = useNavigate();
 
     const handleWishlist = (pid) => {
-        // setWishList([...wishList, product]);
-        // localStorage.setItem("wishList", JSON.stringify([...wishList, product]));
-
-        // toast.success(`${product.name} has been removed from wishlist`);
+      
         try {
             let myWishList = [...wishList];
             let index = myWishList.findIndex(item => item._id === pid)
@@ -53,25 +50,28 @@ const WishList = () => {
                     <>
                         <div className="wishList-content">
                             <div className="wish-header">
-                                My Wishlist{" "}
+                            <h1 className="text-center mt-4">
+
+                                My Wishlist{" "} Contains
                                 <span className="wishlist-count">
                                     {" "}
-                                    {wishList?.length} Items{" "}
+                                    {wishList?.length } Items{" "}
                                 </span>{" "}
+                            </h1>
                             </div>
 
                             <div className="d-flex flex-wrap pro-wishlist">
                                 {wishList?.map((product) => (
                                     <div className="card m-2 card-box" style={{ width: "17rem" }}>
-                                        <CancelIcon
-                                            
+                                        <CancelIcon     
                                             className="faHeart"
                                             onClick={() => {
                                                 handleWishlist(product._id);
                                             }}
+                                            style={{ fontSize: '30px' }}
                                         />
                                         <VisibilityIcon
-                                            
+                                                style={{ fontSize: '30px' }}
                                             className="faEye"
                                             onClick={() => {
                                                 navigate(`/product/${product.slug}`);
@@ -124,6 +124,7 @@ const WishList = () => {
                                                 >
                                                     Add to cart
                                                 </button>
+                                                
                                             </div>
                                         </div>
                                     </div>

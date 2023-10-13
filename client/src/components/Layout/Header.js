@@ -142,14 +142,24 @@ const Header = () => {
                             <Badge count={cart?.length}>
 
                                 <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{ fontSize: 30, cursor: "pointer" }} color="success" />
+                               
                             </Badge>
+                                <NavLink
+                                    to="/cart"
+                                    className="nav-link"
+                                >
+                                    Cart
+                                </NavLink>
 
                             <li className="nav-item">
+                                <Badge count={wishList?.length}>
+
+                                    <FavoriteIcon color="success" onClick={() => navigate("/wishList")} sx={{ fontSize: 30, cursor: "pointer" }}  /> 
+                                </Badge>
+                            </li>
                                 <NavLink to="/wishList" className="nav-link">
                                     WishList
-                                    <FavoriteIcon color="success" /> ({wishList?.length})
                                 </NavLink>
-                            </li>
 
 
 

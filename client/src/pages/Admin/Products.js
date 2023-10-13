@@ -5,7 +5,7 @@ import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 
 
@@ -45,7 +45,8 @@ const Products = () => {
                         <AdminMenu />
                     </div>
                     <div className="col-md-9">
-                        <h1 className="text-center">All Product List</h1>
+                        <h1 className="text-center">All Product ({products?.length === 0 ?  <CircularProgress />
+                            : products?.length})</h1>
 
                         <div className="d-flex flex-wrap">
 
@@ -55,7 +56,7 @@ const Products = () => {
                                         <Box sx={{ width: '100%' }}>
                                             <LinearProgress />
                                         </Box>
-                                       
+
                                     </div>
 
                                 ) : (<>
@@ -66,10 +67,14 @@ const Products = () => {
                                             <Link className='product-link' key={item._id} to={`/dashboard/admin/product/${item.slug}`}>
 
                                                 <div className="card m-4 " style={{ width: '18rem' }} >
-                                                    <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item._id}`} className="card-img-top" alt={item.name} />
+                                                    <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item._id}`} className="card-img-top" alt={item.name}
+                                                        style={{ width: '200px', height: 'auto' }}
+
+                                                    />
                                                     <div className="card-body">
                                                         <h5 className="card-title">{item.name}</h5>
-                                                        <p className="card-text">{item.description}</p>
+                                                        <p className="card-text font-weight-bold">Description : {item.description}</p>
+                                                        <p className="card-text"> Price :{item?.price}</p>
                                                         <a href="#" className="btn btn-primary">Deatils</a>
                                                     </div>
                                                 </div>

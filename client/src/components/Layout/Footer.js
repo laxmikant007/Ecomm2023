@@ -32,7 +32,7 @@ export default function Footer() {
         <Box
             component="footer"
             sx={{
-                background: 'rgb(2, 0, 36)',
+                marginTop: 8,
                 background: 'linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 88, 121, 1) 53%, rgba(0, 212, 255, 1) 100%)',
             }}
         >

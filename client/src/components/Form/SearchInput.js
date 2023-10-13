@@ -66,16 +66,16 @@ const SearchInput = () => {
                     /> */}
                 <Container maxWidth="md" >
                     <TextField value={values.keyword}
-                        onChange={(e) => setValues({ ...values, keyword: e.target.value })} type="search" 
-                        placeholder="Search" 
+                        onChange={(e) => setValues({ ...values, keyword: e.target.value })} type="search"
+                        placeholder="Search"
                         id="search"
-                         label="Search" 
-                         sx={{ width: 200 }} />
+                        label="Search"
+                        sx={{ width: 200 }} />
+                    <Button className='mt-2 ml-2' variant="contained" color="success"
+                        type="submit">
+                        Search
+                    </Button>
                 </Container>
-                <Button variant="contained" color="success"
-                    type="submit">
-                    Search
-                </Button>
             </form>
 
         </div>
