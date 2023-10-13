@@ -94,9 +94,11 @@ const AdminUsers = () => {
         <Layout>
 
 
-            <div className='admin-dashboard-product'>
-                <AdminMenu />
-                <div className="col-md-9" style={{ margin: "auto" }}>
+            <div style={{ marginTop: "80px" }} className=" row container-fluid m-3 p-3" >
+                <div className="col-md-3">
+                    <AdminMenu />
+                </div>
+                <div className="col-md-9">
 
                     <h1 className='text-center'>
                         All Users ({users?.length === 0 ? <CircularProgress />
@@ -116,8 +118,6 @@ const AdminUsers = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
-
                                 {
                                     users?.map((u, i) => (
                                         <>
