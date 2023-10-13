@@ -45,7 +45,7 @@ const Orders = () => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{i + 1}</td>
+                        <td >{i + 1}</td>
                         <td>{o?.status}</td>
                         <td>{o?.buyer?.name}</td>
                         <td>{moment(o?.createAt).fromNow()}</td>
@@ -62,8 +62,7 @@ const Orders = () => {
                             src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                             className="card-img-top"
                             alt={p.name}
-                            width="100px"
-                            height={"auto"}
+                            style={{ width: '200px', height: 'auto' }}
                           />
                         </div>
                         <div className="col-md-8">

@@ -189,7 +189,7 @@ const HomePage = () => {
                 </div>
                 <div className="col-md-9">
 
-                    <h1 className='text-center'> All Products</h1>
+                    <h1 className='text-center'> All Products  </h1>
                     {/* <Box sx={{ pt: 0.5 }}>
                         <Skeleton animation="wave" variant="circular" width={40} height={40} />
                         <Skeleton variant="rectangular" width={"20%"} height={118} />

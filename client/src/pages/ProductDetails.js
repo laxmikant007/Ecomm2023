@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import { useCart } from '../context/cart';
 
 
 const ProductDetails = () => {
@@ -12,6 +13,8 @@ const ProductDetails = () => {
     const params = useParams();
     const [product, setProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [cart, setCart] = useCart();
+
 
 
     const getProduct = async () => {
@@ -45,7 +48,7 @@ const ProductDetails = () => {
     return (
         <Layout title='Product Deatils '>
 
-            <div   className="row container mt-4">
+            <div className="row container mt-4">
                 <div className="col-md-6 text-center">
                     <img
                         src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`} className="img-fluid img-thumbnail product-image" alt={product?.name}
@@ -58,13 +61,13 @@ const ProductDetails = () => {
                     <h1 className='text-center'>Product Details</h1>
                     <h5>Product Name : {product?.name}</h5>
                     <h5>Product Description : {product?.description}</h5>
-
                     <h5>Product Price : {product?.price}</h5>
                     <h5>Product Category : {product?.category?.name}</h5>
-                    {/* <button className="btn btn-success ms-2">Add To Cart</button>
-                    <button className="btn btn-success ms-2">Buy Now </button> */}
-
-                    <Button className='m-2' variant="contained" >Add To Cart</Button>
+                    <Button className='m-2' variant="contained" onClick={() => {
+                        setCart([...cart, product]);
+                        localStorage.setItem('cart', JSON.stringify([...cart, product]));
+                        toast.success(`${product.name} has been added to cart`);
+                    }} >Add To Cart</Button>
                     <Button className='m-2' variant="contained" color="success">Buy Now</Button>
 
 
@@ -90,7 +93,13 @@ const ProductDetails = () => {
                                     <p className="card-text">{item.price}</p>
 
                                     <button className="btn btn-primary ms-2" onClick={() => navigate(`/product/${item.slug}`)} >More Details</button>
-                                    <button className="btn btn-success ms-2">Add To Cart</button>
+                                    <button className="btn btn-success ms-2"
+                                        onClick={() => {
+                                            setCart([...cart, item]);
+                                            localStorage.setItem('cart', JSON.stringify([...cart, item]));
+                                            toast.success(`${item.name} has been added to cart`);
+                                        }}
+                                    > Add To Cart</button>
 
 
                                 </div>
@@ -98,7 +107,7 @@ const ProductDetails = () => {
                         ))}
                 </div>
             </div>
-        </Layout>
+        </Layout >
     )
 }
 

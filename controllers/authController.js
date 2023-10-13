@@ -236,7 +236,7 @@ export const updateProfileController = async(req , res)=>{
 export const getOrdersController = async (req, res) => {
     try {
       const orders = await orderModel
-        .find({ buyer: req.user._id })
+        .find({ buyer: req.user._id }) 
         .populate("products", "-photo")
         .populate("buyer", "name");
       res.json(orders);
@@ -268,6 +268,21 @@ export const getOrdersController = async (req, res) => {
       });
     }
   };
+
+  export const getAllUsersController= async(req,res)=>{
+    try{
+      const users= await userModel.find({}).sort({ createdAt: "-1" });;
+
+    res.json(users)
+    }
+    catch(error){
+      console.log("Error while getting all users by admin ",error.message);
+      res.status(400).send({
+        error,
+        success:false
+      })
+    }
+}
   
   //order status
   export const orderStatusController = async (req, res) => {

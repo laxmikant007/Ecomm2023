@@ -123,7 +123,8 @@ const CartPage = () => {
                                     <div className="col-md-4">
                                         <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item._id}`}
                                             className="card-img-top m-2"
-                                            alt={item.name} />
+                                            alt={item.name}
+                                            style={{ width: '200px', height: 'auto' }} />
                                     </div>
                                     <div className="col-md-8">
                                         <p>{item.name}</p>
