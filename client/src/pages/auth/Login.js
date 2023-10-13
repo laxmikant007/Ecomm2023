@@ -152,9 +152,7 @@ export default function SignInSide() {
   const [auth, setAuth] = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const data = {
-    //   email, password
-    // }
+  
 
     try {
       const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, {
@@ -187,15 +185,12 @@ export default function SignInSide() {
       if (error.message === "Network Error") {
         toast.error("Network error occurred. Please check your internet connection and try again.");
       }
-      // toast.error(error.response.data.message)
+   
     }
 
 
 
   }
-
-
-
   return (
     <>
       <ThemeProvider theme={defaultTheme}>
@@ -231,15 +226,6 @@ export default function SignInSide() {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-
-              {/* <div className="google-btn">
-                <div className="google-icon-wrapper">
-                  <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                </div>
-                <p className="btn-text"><b>Sign in with google</b></p>
-              </div> */}
-
-
               <GoogleOAuthProvider clientId="195337239909-bpjg0qe850h5n4npsfk8r969ki2f89u6.apps.googleusercontent.com">
                 <GoogleLogin
                   onSuccess={credentialResponse => {
