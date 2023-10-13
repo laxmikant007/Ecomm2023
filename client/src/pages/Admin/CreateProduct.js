@@ -75,7 +75,7 @@ const CreateProduct = () => {
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <h1>Create Product</h1>
+            <h1 className="text-center">Create Product</h1>
             <div className="m-1 w-75">
               <Select
                 bordered={false}

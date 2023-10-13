@@ -176,7 +176,7 @@ const HomePage = () => {
         }
 
     }
-    
+
 
 
     return (
@@ -189,7 +189,7 @@ const HomePage = () => {
                 </div>
                 <div className="col-md-9">
 
-                    <h1 className='text-center'> All Products  </h1>
+                    <h1 className='text-center'> Crazy Deals  </h1>
                     {/* <Box sx={{ pt: 0.5 }}>
                         <Skeleton animation="wave" variant="circular" width={40} height={40} />
                         <Skeleton variant="rectangular" width={"20%"} height={118} />
@@ -214,18 +214,14 @@ const HomePage = () => {
                                                 <div key={product._id} className="card m-2 card-box" style={{ width: '17rem' }}  >
 
 
-                                                    {product.photo ? ( // Check if product has a photo
-                                                        <Box sx={{ width: "100%", padding: "10px" }}>
-                                                            <CircularProgress />
-                                                        </Box>
-                                                    ) : (
-                                                        <img
-                                                            src={`${URL}/api/v1/product/product-photo/${product._id}`}
-                                                            className="card-img-top"
-                                                            style={{ height: "200px", objectFit: "cover" }}
-                                                            alt={product.name}
-                                                        />
-                                                    )}
+
+                                                    <img
+                                                        src={`${URL}/api/v1/product/product-photo/${product._id}`}
+                                                        className="card-img-top"
+                                                        style={{ height: "200px", objectFit: "cover" }}
+                                                        alt={product.name}
+                                                    />
+
 
                                                     <div className="d-flex justify-content-between p-2">
 
@@ -235,7 +231,7 @@ const HomePage = () => {
 
                                                     <div className="card-body">
                                                         <h5 className="card-title">{product.name}</h5>
-                                                        <p className="card-text">{product.description.substring(0, 25)}....</p>
+                                                        <p className="card-text">{product.description.substring(0, 40)}....</p>
                                                         <div className='pro-price'>
                                                             <div className="card-text fp">    ₹ {product.price - 500} </div>
                                                             <div className="card-text sp">  ₹ {product.price} </div>
@@ -267,19 +263,15 @@ const HomePage = () => {
                                         )
 
                                     }
-
                                 </div>
-                                <div className="m-2 p-3">
+                                <div  className="m-2 p-3 ">
                                     {
                                         products && products.length < total && (
-                                            <button className='btn btn-warning ' onClick={(e) => {
+                                            <button className='btn btn-warning d-flex justify-content-center  ' onClick={(e) => {
                                                 e.preventDefault();
                                                 setPage(page + 1);
-
-
                                             }}>
-                                                {loading ? "Loading..." : "Loadmore"}
-
+                                                {loading ? <CircularProgress/> : "Loadmore"}
 
                                             </button>
 
@@ -287,7 +279,7 @@ const HomePage = () => {
                                     }
                                 </div>
 
-                                {/* <Loader/> */}
+                                
 
                             </div>
 
